@@ -5,9 +5,9 @@ import java.util.Date;
 public class Earthquake {
     private String mMagnitude;
     private String mLocation;
-    private Date mDate;
+    private String mDate;
 
-    public Earthquake(String magnitude, String location, Date date) {
+    public Earthquake(String magnitude, String location, String date) {
         mMagnitude = magnitude;
         mLocation = location;
         mDate = date;
@@ -21,7 +21,7 @@ public class Earthquake {
         return mMagnitude;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return mDate;
     }
 }
