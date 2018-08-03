@@ -13,12 +13,14 @@ public class Earthquake {
         mDate = date;
     }
 
-    public String getLocation() {
-        return mLocation;
+    public String getMagnitude() {
+//        String magnitudeString = mMagnitude.toString();
+//        return magnitudeString;
+        return mMagnitude;
     }
 
-    public String getMagnitude() {
-        return mMagnitude;
+    public String getLocation() {
+        return mLocation;
     }
 
     public String getDate() {
