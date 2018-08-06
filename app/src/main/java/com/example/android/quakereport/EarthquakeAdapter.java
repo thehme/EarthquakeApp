@@ -35,9 +35,13 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         TextView earthquakeLocationTextView = (TextView) listItemView.findViewById(R.id.quake_location);
         earthquakeLocationTextView.setText(currentEarthquake.getLocation());
 
-        // Find the textView in the list_item.xml layout with the ID quake_time
+        // Find the textView in the list_item.xml layout with the ID quake_date
+        TextView earthquakeDateTextView = (TextView) listItemView.findViewById(R.id.quake_date);
+        earthquakeDateTextView.setText(currentEarthquake.getDate());
+
+        // Find the textView in the list_item.xml layout with the ID quake_date
         TextView earthquakeTimeTextView = (TextView) listItemView.findViewById(R.id.quake_time);
-        earthquakeTimeTextView.setText(currentEarthquake.getDate());
+        earthquakeTimeTextView.setText(currentEarthquake.getTime());
 
         return listItemView;
     }

@@ -25,7 +25,13 @@ public class Earthquake {
         long timeInMilliseconds = mDate;
         Date dateObject = new Date(timeInMilliseconds);
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM DD, yyyy");
-        String dateToDisplay = dateFormatter.format(dateObject);
-        return dateToDisplay;
+        return dateFormatter.format(dateObject);
+    }
+
+    public String getTime() {
+        long timeInMilliseconds = mDate;
+        Date dateObject = new Date(timeInMilliseconds);
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
+        return timeFormatter.format(dateObject);
     }
 }
