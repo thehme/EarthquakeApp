@@ -22,4 +22,8 @@
 
     <!-- Accent color of the app -->
     <color name="colorAccent">#10CAC9</color>
+    <color name="superHighMagnitude">#C03823</color>
+    <color name="highMagnitude">#D93218</color>
+    <color name="mediumMagnitude">#E13A20</color>
+    <color name="lowMagnitude">#4A7BA7</color>
 </resources>
