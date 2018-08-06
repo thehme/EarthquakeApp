@@ -29,6 +29,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
+            android:id="@+id/quake_proximity"
+            tools:text="proximity"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
             android:id="@+id/quake_location"
             tools:text="location"/>
         <TextView
