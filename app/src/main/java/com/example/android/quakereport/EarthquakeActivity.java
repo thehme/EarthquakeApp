@@ -15,14 +15,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create ArrayList of earthquake objects
-        final ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
-        earthquakes.add(new Earthquake("6.0", "San Francisco", "8:30AM"));
-        earthquakes.add(new Earthquake("6.0", "London", "8:30AM"));
-        earthquakes.add(new Earthquake("6.0", "Tokyo", "8:30AM"));
-        earthquakes.add(new Earthquake("6.0", "Mexico City", "8:30AM"));
-        earthquakes.add(new Earthquake("6.0", "Moscow", "8:30AM"));
-        earthquakes.add(new Earthquake("6.0", "Rio de Janeiro", "8:30AM"));
-        earthquakes.add(new Earthquake("6.0", "Paris", "8:30AM"));
+        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
         EarthquakeAdapter itemsAdapter = new EarthquakeAdapter(this, earthquakes);
 
