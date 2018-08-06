@@ -3,17 +3,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Earthquake {
-    private String mMagnitude;
+    private Double mMagnitude;
     private String mLocation;
     private long mDate;
 
-    public Earthquake(String magnitude, String location, long date) {
+    public Earthquake(Double magnitude, String location, long date) {
         mMagnitude = magnitude;
         mLocation = location;
         mDate = date;
     }
 
-    public String getMagnitude() {
+    public Double getMagnitude() {
         return mMagnitude;
     }
 

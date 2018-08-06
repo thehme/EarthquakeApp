@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
@@ -29,7 +29,9 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
         // Find the textView in the list_item.xml layout with the ID quake_magnitude
         TextView earthquakeMagnitudeTextView = (TextView) listItemView.findViewById(R.id.quake_magnitude);
-        earthquakeMagnitudeTextView.setText(currentEarthquake.getMagnitude());
+        DecimalFormat formatter = new DecimalFormat("0.0");
+        String output = formatter.format(currentEarthquake.getMagnitude());
+        earthquakeMagnitudeTextView.setText(output);
 
         // Find the textView in the list_item.xml layout with the ID quake_proximity
         TextView earthquakeProximityTextView = (TextView) listItemView.findViewById(R.id.quake_proximity);
