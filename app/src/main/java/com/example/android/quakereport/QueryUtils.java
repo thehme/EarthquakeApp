@@ -30,9 +30,6 @@ public final class QueryUtils {
     /** Tag for the log messages */
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
-    /**
-     * Query the USGS dataset and return an {@link Event} object to represent a single earthquake.
-     */
     public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -45,7 +42,6 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
 
-        // Extract relevant fields from the JSON response and create an {@link Event} object
         List<Earthquake> earthquakes = extractEarthquakes(jsonResponse);
         return earthquakes;
     }
@@ -174,38 +170,4 @@ public final class QueryUtils {
         // Return the list of earthquakes
         return earthquakes;
     }
-
-//    private static Event extractFeatureFromJson(String earthquakeJSON) {
-//        // If the JSON string is empty or null, then return early.
-//        if (TextUtils.isEmpty(earthquakeJSON)) {
-//            return null;
-//        }
-//
-//        try {
-//            JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
-//            JSONArray featuresArray = baseJsonResponse.getJSONArray("features");
-//
-//            // If there are results in the features array
-//            if (featuresArray.length() > 0) {
-//                // Extract out the first feature (which is an earthquake)
-//                JSONObject firstFeature = featuresArray.getJSONObject(0);
-//                JSONObject properties = firstFeature.getJSONObject("properties");
-//
-//                for (int i = 0; i < earthquakesArray.length(); i++) {
-//                    JSONObject currentEarthquakeJson = earthquakesArray.getJSONObject(i);
-//                    JSONObject properties = currentEarthquakeJson.getJSONObject("properties");
-//                    Double mag = properties.getDouble("mag");
-//                    String location = properties.getString("place");
-//                    long time = properties.getLong("time");
-//                    String url = properties.getString("url");
-//
-//                    Earthquake earthquake = new Earthquake(mag, location, time, url);
-//                    earthquakes.add(earthquake);
-//                }
-//            }
-//        } catch (JSONException e) {
-//            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
-//        }
-//        return null;
-//    }
 }
