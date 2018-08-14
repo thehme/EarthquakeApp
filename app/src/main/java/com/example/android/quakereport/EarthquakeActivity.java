@@ -1,8 +1,9 @@
 package com.example.android.quakereport;
 
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,7 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity {
+public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
     /** Adapter for the list of earthquakes */
     private EarthquakeAdapter itemsAdapter;
 
@@ -32,8 +33,7 @@ public class EarthquakeActivity extends AppCompatActivity {
 
         earthquakeListView.setAdapter(itemsAdapter);
 
-        FetchEarthquakeDataAsyncTask task = new FetchEarthquakeDataAsyncTask();
-        task.execute(USGS_REQUEST_URL);
+        getLoaderManager().initLoader(0, null, this);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -47,21 +47,22 @@ public class EarthquakeActivity extends AppCompatActivity {
         });
     }
 
-    private class FetchEarthquakeDataAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
-        @Override
-        protected List<Earthquake> doInBackground(String... urls) {
-            if (urls.length < 1 || urls[0] == null) {
-                return null;
-            }
-            List<Earthquake> earthquakes = QueryUtils.fetchEarthquakeData(urls[0]);
-            return earthquakes;
+    @Override
+    public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
+        return new EarthquakeLoader(EarthquakeActivity.this, USGS_REQUEST_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        // clear adapter first
+        itemsAdapter.clear();
+        if (earthquakes != null && !earthquakes.isEmpty()) {
+            itemsAdapter.addAll(earthquakes);
         }
-        protected void onPostExecute(List<Earthquake> earthquakes) {
-            // clear adapter first
-            itemsAdapter.clear();
-            if (earthquakes != null && !earthquakes.isEmpty()) {
-                itemsAdapter.addAll(earthquakes);
-            }
-        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        itemsAdapter.clear();
     }
 }
