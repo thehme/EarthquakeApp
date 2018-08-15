@@ -10,12 +10,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Earthquake>> {
     private static final String TAG = EarthquakeActivity.class.getSimpleName();
+
+    /** ListView for earthquake dta **/
+    private ListView earthquakeListView;
+
+    /** text view to show empty view **/
+    private TextView emptyTextView;
 
     /** Adapter for the list of earthquakes */
     private EarthquakeAdapter itemsAdapter;
@@ -32,8 +39,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         itemsAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
 
         // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
-
+        earthquakeListView = (ListView) findViewById(R.id.list);
+        emptyTextView = findViewById(R.id.empty_view);
         earthquakeListView.setAdapter(itemsAdapter);
 
         Log.i(TAG, "initializing loader");
@@ -65,6 +72,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         if (earthquakes != null && !earthquakes.isEmpty()) {
             Log.i(TAG, "number of earthquakes: " + earthquakes.size());
             itemsAdapter.addAll(earthquakes);
+        } else {
+            earthquakeListView.setEmptyView(emptyTextView);
         }
     }
 
