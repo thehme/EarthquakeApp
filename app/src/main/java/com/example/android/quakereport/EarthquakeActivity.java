@@ -1,8 +1,11 @@
 package com.example.android.quakereport;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,15 +39,18 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        itemsAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
+        /** check for internet connection **/
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        itemsAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
         // Find a reference to the {@link ListView} in the layout
         earthquakeListView = (ListView) findViewById(R.id.list);
-        emptyTextView = findViewById(R.id.empty_view);
-        earthquakeListView.setAdapter(itemsAdapter);
+        emptyTextView = (TextView) findViewById(R.id.empty_view);
 
-        Log.i(TAG, "initializing loader");
-        getLoaderManager().initLoader(0, null, this);
+        earthquakeListView.setAdapter(itemsAdapter);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,6 +62,17 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
                 startActivity(intent);
             }
         });
+        Log.i(TAG, "checking internet");
+        if (isConnected) {
+            Log.i(TAG, "initializing loader");
+            getLoaderManager().initLoader(0, null, this);
+        } else {
+            Log.i(TAG, "no internet connection");
+            View progressBar = (View) findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+            emptyTextView.setVisibility(View.VISIBLE);
+            emptyTextView.setText(R.string.no_internet);
+        }
     }
 
     @Override
@@ -70,6 +87,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // hide progress bar
         View progressBar = (View) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+        emptyTextView.setVisibility(View.VISIBLE);
+        emptyTextView.setText(R.string.no_data);
 
         // clear adapter first
         itemsAdapter.clear();
