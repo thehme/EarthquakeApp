@@ -67,6 +67,10 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
         Log.i(TAG, "loader finished");
+        // hide progress bar
+        View progressBar = (View) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
+
         // clear adapter first
         itemsAdapter.clear();
         if (earthquakes != null && !earthquakes.isEmpty()) {
