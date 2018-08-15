@@ -131,6 +131,7 @@ public final class QueryUtils {
      * parsing a JSON response.
      */
     private static List<Earthquake> extractEarthquakes(String jsonResponse) {
+        Log.i(LOG_TAG, "extracting earthquake data");
         if (TextUtils.isEmpty(jsonResponse)) {
             return null;
         }
