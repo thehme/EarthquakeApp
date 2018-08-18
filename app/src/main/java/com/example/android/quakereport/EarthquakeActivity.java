@@ -87,8 +87,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // hide progress bar
         View progressBar = (View) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
-        emptyTextView.setVisibility(View.VISIBLE);
-        emptyTextView.setText(R.string.no_data);
 
         // clear adapter first
         itemsAdapter.clear();
@@ -96,6 +94,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             Log.i(TAG, "number of earthquakes: " + earthquakes.size());
             itemsAdapter.addAll(earthquakes);
         } else {
+            emptyTextView.setVisibility(View.VISIBLE);
+            emptyTextView.setText(R.string.no_data);
             earthquakeListView.setEmptyView(emptyTextView);
         }
     }
